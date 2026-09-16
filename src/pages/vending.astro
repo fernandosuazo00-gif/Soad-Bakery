@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+import VendingFeature from "../components/VendingFeature.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import { contact } from "../data/site";
+
+const whatsappVendingQuestion = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
+  "Hola SOAD Bakery 👋 tengo una pregunta sobre la vending machine de Centro Cívico."
+)}`;
+---
+
+<Layout
+  title="Vending Machine"
+  description="Conocé la vending machine de SOAD Bakery en Centro Cívico Gubernamental, Tegucigalpa: una selección de productos disponibles al instante."
+  path="/vending"
+>
+  <VendingFeature />
+
+  <section class="py-16 md:py-24">
+    <div class="container-page text-center">
+      <SectionHeading
+        align="center"
+        kicker="¿Tenés dudas?"
+        title="Escribinos y te confirmamos disponibilidad"
+        subtitle="Estamos actualizando el inventario de la vending machine seguido — si buscás algo en particular, preguntanos por WhatsApp."
+        class="mx-auto"
+      />
+      <a href={whatsappVendingQuestion} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-6">
+        Preguntar por WhatsApp
+      </a>
+    </div>
+  </section>
+</Layout>

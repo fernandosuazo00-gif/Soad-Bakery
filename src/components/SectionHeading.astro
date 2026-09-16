@@ -1,0 +1,37 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  subtitle?: string;
+  align?: "left" | "center";
+  tone?: "dark" | "light";
+  class?: string;
+}
+
+const { kicker, title, subtitle, align = "left", tone = "dark", class: className = "" } = Astro.props;
+---
+
+<div
+  class:list={[
+    "max-w-2xl",
+    align === "center" ? "mx-auto text-center" : "text-left",
+    className,
+  ]}
+>
+  {kicker && <p class:list={["kicker", tone === "light" && "text-pink-300"]}>{kicker}</p>}
+  <h2
+    class:list={[
+      "font-display mt-3 text-3xl font-semibold leading-tight sm:text-4xl",
+      tone === "light" ? "text-cream-50" : "text-ink-950",
+    ]}
+  >
+    {title}
+  </h2>
+  {
+    subtitle && (
+      <p class:list={["mt-3 text-base", tone === "light" ? "text-cream-100/80" : "text-stone-600"]}>
+        {subtitle}
+      </p>
+    )
+  }
+</div>

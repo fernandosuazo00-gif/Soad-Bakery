@@ -1,0 +1,54 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import StarRating from "./StarRating.astro";
+import { testimonials, googleListing } from "../data/testimonials";
+---
+
+<section class="bg-cream-100 py-16 md:py-24">
+  <div class="container-page">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <SectionHeading kicker="Reseñas de Google" title="Lo que dicen nuestros clientes" />
+      <div class="flex items-center gap-3">
+        <StarRating rating={googleListing.rating} class="text-amber-500" />
+        <span class="text-lg font-bold tabular-nums text-ink-950">{googleListing.rating}</span>
+        <span class="text-sm text-stone-600">({googleListing.reviewCount} reseñas)</span>
+      </div>
+    </div>
+
+    <div class="no-scrollbar mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 sm:overflow-visible">
+      {
+        testimonials.map((t) => (
+          <figure class="w-[85%] shrink-0 snap-start rounded-[var(--radius-card)] bg-white p-6 shadow-[var(--shadow-soft)] sm:w-auto">
+            <StarRating rating={t.rating} class="text-amber-500" />
+            <blockquote class="mt-4 text-sm leading-relaxed text-ink-950">
+              “{t.quote}”
+            </blockquote>
+            <figcaption class="mt-4 flex items-center justify-between text-xs text-stone-500">
+              <span class="font-semibold text-ink-950">{t.author}</span>
+              <span>{t.relativeDate} · Google</span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <a
+      href={googleListing.mapsUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="mt-8 inline-flex items-center gap-2 text-sm font-bold text-ink-950 underline underline-offset-4"
+    >
+      Ver reseñas en Google →
+    </a>
+  </div>
+</section>
+
+<style>
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>

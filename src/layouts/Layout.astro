@@ -1,0 +1,105 @@
+---
+import "@fontsource-variable/fraunces";
+import "@fontsource-variable/plus-jakarta-sans";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import CartDrawer from "../components/CartDrawer.astro";
+import CartToast from "../components/CartToast.astro";
+import StickyOrderBar from "../components/StickyOrderBar.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = site.description,
+  path = "/",
+  ogImage = "/og-image.jpg",
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(path, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
+---
+
+<!doctype html>
+<html lang="es-HN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#14110e" />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:locale" content="es_HN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: site.name,
+        description: site.description,
+        url: Astro.site?.toString(),
+        logo: new URL("/soad-logo-mark.png", Astro.site).toString(),
+        image: ogImageURL.toString(),
+        sameAs: [
+          "https://www.instagram.com/soadbakery/",
+          "https://www.tiktok.com/@soadbakery",
+          "https://www.facebook.com/SoadBakery/",
+        ],
+        areaServed: {
+          "@type": "City",
+          name: "Tegucigalpa",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: "+504-9621-2331",
+          contactType: "customer service",
+          areaServed: "HN",
+          availableLanguage: "Spanish",
+        },
+      })}
+    />
+  </head>
+  <body class="min-h-screen flex flex-col pb-20 md:pb-0">
+    <a href="#main" class="skip-link">Saltar al contenido principal</a>
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <CartDrawer />
+    <CartToast />
+    <StickyOrderBar />
+    <script src="../scripts/cart.ts"></script>
+  </body>
+</html>

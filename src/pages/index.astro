@@ -1,0 +1,24 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import FeaturedProducts from "../components/FeaturedProducts.astro";
+import OrderMethods from "../components/OrderMethods.astro";
+import VendingFeature from "../components/VendingFeature.astro";
+import HistoriaTeaser from "../components/HistoriaTeaser.astro";
+import Testimonials from "../components/Testimonials.astro";
+import EditorialGallery from "../components/EditorialGallery.astro";
+---
+
+<Layout
+  title="Repostería artesanal y Gift Center en Tegucigalpa"
+  description="Pasteles, cheesecakes, boxes de regalo y postres artesanales en Tegucigalpa. Dark bakery con delivery propio, WhatsApp, PedidosYa y vending machine en Centro Cívico Gubernamental."
+  path="/"
+>
+  <Hero />
+  <FeaturedProducts />
+  <OrderMethods />
+  <VendingFeature compact />
+  <HistoriaTeaser />
+  <Testimonials />
+  <EditorialGallery />
+</Layout>

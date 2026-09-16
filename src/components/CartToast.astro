@@ -1,0 +1,30 @@
+<div
+  id="cart-toast"
+  class="pointer-events-none fixed inset-x-0 bottom-24 z-[80] flex justify-center px-4 opacity-0 transition-opacity duration-200 md:bottom-8"
+  aria-live="polite"
+>
+  <div class="flex items-center gap-2 rounded-full bg-ink-950 px-5 py-3 text-sm font-semibold text-cream-50 shadow-2xl">
+    <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4 text-pink-400" aria-hidden="true">
+      <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+    <span id="cart-toast-text">Agregado al carrito</span>
+  </div>
+</div>
+
+<script>
+  const toast = document.getElementById("cart-toast")!;
+  const toastText = document.getElementById("cart-toast-text")!;
+  let hideTimer: ReturnType<typeof setTimeout> | null = null;
+
+  window.addEventListener("soad-cart:added", (e) => {
+    const detail = (e as CustomEvent).detail;
+    toastText.textContent = `${detail?.product?.name ?? "Producto"} agregado al carrito`;
+    toast.classList.remove("opacity-0");
+    toast.classList.add("opacity-100");
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      toast.classList.remove("opacity-100");
+      toast.classList.add("opacity-0");
+    }, 1800);
+  });
+</script>

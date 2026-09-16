@@ -1,0 +1,133 @@
+---
+import { Image } from "astro:assets";
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import teamPhoto from "../assets/history/soad-faraj-team.jpg";
+import { contact } from "../data/site";
+
+const whatsappQuickOrder = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
+  "Hola SOAD Bakery 👋 quisiera hacer un pedido."
+)}`;
+
+const anniversaryWords = [
+  "Con amor",
+  "De sabor",
+  "Sin parar",
+  "Una familia",
+  "Siendo hogar",
+  "Gracias a ti",
+];
+---
+
+<Layout
+  title="Nuestra Historia"
+  description="La historia de Soad Faraj, fundadora de SOAD Bakery: cómo un renacer personal se convirtió en 10 años de repostería artesanal en Tegucigalpa."
+  path="/nuestra-historia"
+>
+  <section class="bg-ink-950 pb-16 pt-16 text-cream-50 md:pb-20 md:pt-24">
+    <div class="container-page max-w-3xl">
+      <p class="kicker text-pink-300">Nuestra Historia</p>
+      <h1 class="font-display mt-4 text-4xl font-semibold leading-[1.1] sm:text-5xl">
+        Un renacer que se convirtió en repostería.
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-cream-100/80">
+        Diez años atrás, Soad Faraj enfrentó uno de los capítulos más
+        difíciles de su vida. Hoy, esa historia se sigue horneando todos
+        los días en cada pastel que sale de SOAD Bakery.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="container-page grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+      <div class="max-w-xl">
+        <h2 class="font-display text-2xl font-semibold text-ink-950 sm:text-3xl">
+          De una batalla de salud, un nuevo propósito
+        </h2>
+        <div class="mt-5 flex flex-col gap-5 text-base leading-relaxed text-stone-700">
+          <p>
+            Antes de ser conocida por sus pasteles, Soad Faraj enfrentó una
+            dura batalla por su salud. En medio de ese capítulo, encontró en
+            la repostería una nueva forma de vivir, agradecer y compartir
+            esperanza — un propósito que nació justo cuando todo parecía
+            detenerse.
+          </p>
+          <blockquote class="font-display border-l-4 border-pink-500 pl-5 text-xl italic leading-snug text-ink-950">
+            "Los sueños más grandes nacen justo cuando todo parece
+            detenerse."
+          </blockquote>
+          <p>
+            Así nació SOAD Bakery: una historia escrita con fe, resiliencia,
+            amor por la familia y la valentía de volver a empezar.
+          </p>
+        </div>
+      </div>
+
+      <div class="lg:pt-2">
+        <Image
+          src={teamPhoto}
+          alt="Soad Faraj, fundadora de SOAD Bakery, junto a su equipo en la cocina"
+          width={900}
+          height={1125}
+          class="aspect-[4/5] w-full rounded-[var(--radius-card)] object-cover object-top shadow-[var(--shadow-soft)]"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream-100 py-16 md:py-24">
+    <div class="container-page max-w-2xl">
+      <h2 class="font-display text-2xl font-semibold text-ink-950 sm:text-3xl">
+        Cómo floreció la repostería SOAD
+      </h2>
+      <div class="mt-5 flex flex-col gap-5 text-base leading-relaxed text-stone-700">
+        <p>
+          Soad es, antes que nada, una dedicada madre y esposa. Su pasión
+          por la cocina la llevó a buscar siempre la manera de perfeccionar
+          y ofrecer las recetas de postres, cupcakes y pasteles más
+          innovadoras para sus clientes — y desde entonces, ha florecido la
+          más refinada repostería.
+        </p>
+        <p>
+          Su actitud dulce y sus gentiles atenciones armonizan con cada una
+          de sus mezclas: blunt cake de manzana, brazo gitano, tres leches,
+          pastel de almendra y caramelo, amaretto, baklava... creaciones
+          pensadas para gozarse sin apuro, la combinación perfecta de
+          caricias, sonrisas y ternura.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-ink-950 py-16 text-cream-50 md:py-24">
+    <div class="container-page">
+      <SectionHeading kicker="10 años" title="Una década horneando momentos" tone="light" class="mx-auto" align="center" />
+      <div class="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-4">
+        {
+          anniversaryWords.map((word) => (
+            <span class="font-display text-xl font-medium text-cream-100/70 sm:text-2xl">
+              {word}
+            </span>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24">
+    <div class="container-page max-w-2xl text-center">
+      <h2 class="font-display text-2xl font-semibold text-ink-950 sm:text-3xl">SOAD hoy</h2>
+      <p class="mt-5 text-base leading-relaxed text-stone-700">
+        Hoy SOAD Bakery es un dark bakery y gift center: sin tienda física,
+        pero con un equipo que hornea todos los días para llegar hasta vos
+        por delivery propio, apps de pedido y nuestra vending machine. Un
+        equipo que, como dice Soad, se siente como una familia — y que
+        sigue creciendo gracias a cada cliente que confía en nosotros.
+      </p>
+      <a href={whatsappQuickOrder} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-8">
+        Hacé tu pedido
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,17 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Página no encontrada" path="/404" noindex>
+  <section class="container-page flex min-h-[60vh] flex-col items-center justify-center gap-4 py-24 text-center">
+    <p class="kicker">Error 404</p>
+    <h1 class="font-display text-3xl font-semibold text-ink-950 sm:text-4xl">
+      Esta página se antojó y desapareció
+    </h1>
+    <p class="max-w-md text-stone-600">
+      No encontramos lo que buscabas, pero seguro encontrás algo rico en
+      nuestro catálogo.
+    </p>
+    <a href="/" class="btn btn-dark mt-2">Volver al inicio</a>
+  </section>
+</Layout>

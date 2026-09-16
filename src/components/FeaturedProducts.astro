@@ -1,0 +1,24 @@
+---
+import ProductCard from "./ProductCard.astro";
+import SectionHeading from "./SectionHeading.astro";
+import { featuredProducts } from "../data/products";
+---
+
+<section class="py-16 md:py-24">
+  <div class="container-page">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <SectionHeading
+        kicker="Nuestros favoritos"
+        title="Lo que más se antoja esta semana"
+        subtitle="Una probadita de nuestro catálogo — cakes, boxes y bakery hechos para compartir (o no)."
+      />
+      <a href="/productos" class="btn btn-ghost-dark hidden sm:inline-flex">Ver todo el catálogo</a>
+    </div>
+
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-4">
+      {featuredProducts.map((product, i) => <ProductCard product={product} loading={i < 2 ? "eager" : "lazy"} />)}
+    </div>
+
+    <a href="/productos" class="btn btn-ghost-dark mt-8 w-full sm:hidden">Ver todo el catálogo</a>
+  </div>
+</section>

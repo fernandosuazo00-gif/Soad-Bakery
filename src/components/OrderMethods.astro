@@ -1,0 +1,76 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { contact } from "../data/site";
+
+const whatsappQuickOrder = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
+  "Hola SOAD Bakery 👋 quisiera hacer un pedido."
+)}`;
+
+const methods = [
+  {
+    title: "WhatsApp",
+    description: "Armá tu pedido en el sitio y enviánoslo directo por WhatsApp. Es la forma más rápida de confirmar.",
+    cta: { label: "Escribir por WhatsApp", href: whatsappQuickOrder },
+    primary: true,
+  },
+  {
+    title: "PedidosYa",
+    description: "Pedí desde nuestro menú en la app y recibilo con su propio delivery.",
+    cta: { label: "Ver en PedidosYa", href: contact.pedidosYaUrl },
+  },
+  {
+    title: "Delivery propio",
+    description: "Coordinamos la entrega directo con nuestro equipo dentro de Tegucigalpa.",
+  },
+  {
+    title: "Pickup",
+    description: "Elegí retirar tu pedido en el punto y horario que coordinemos contigo.",
+  },
+  {
+    title: "Vending Machine",
+    description: "Productos seleccionados, disponibles al instante en Centro Cívico Gubernamental.",
+    cta: { label: "Conocer la vending", href: "/vending" },
+  },
+];
+---
+
+<section class="bg-cream-100 py-16 md:py-24">
+  <div class="container-page">
+    <SectionHeading
+      kicker="Cómo pedir"
+      title="Cinco formas de llegar hasta tu antojo"
+      subtitle="Somos un dark bakery: sin tienda física, pero con más formas de llegar hasta vos."
+    />
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+      {
+        methods.map((method) => (
+          <div
+            class:list={[
+              "flex flex-col gap-3 rounded-[var(--radius-card)] p-6 shadow-[var(--shadow-soft)]",
+              method.primary ? "bg-ink-950 text-cream-50" : "bg-white text-ink-950",
+            ]}
+          >
+            <h3 class="font-display text-lg font-semibold">{method.title}</h3>
+            <p class:list={["text-sm flex-1", method.primary ? "text-cream-100/80" : "text-stone-600"]}>
+              {method.description}
+            </p>
+            {method.cta && (
+              <a
+                href={method.cta.href}
+                target={method.cta.href.startsWith("http") ? "_blank" : undefined}
+                rel={method.cta.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class:list={[
+                  "text-sm font-bold underline underline-offset-4",
+                  method.primary ? "text-pink-300" : "text-pink-600",
+                ]}
+              >
+                {method.cta.label} →
+              </a>
+            )}
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

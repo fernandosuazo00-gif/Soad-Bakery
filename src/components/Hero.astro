@@ -1,0 +1,76 @@
+---
+import { contact } from "../data/site";
+
+const whatsappQuickOrder = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
+  "Hola SOAD Bakery 👋 quisiera hacer un pedido."
+)}`;
+---
+
+<section class="relative isolate flex min-h-[92svh] items-end overflow-hidden bg-ink-950 md:min-h-[94svh]">
+  <video
+    id="hero-video"
+    class="absolute inset-0 h-full w-full object-cover"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="none"
+    poster="/video/hero-poster.jpg"
+    aria-hidden="true"
+  >
+    <source src="/video/hero-mobile.mp4" media="(max-width: 767px)" type="video/mp4" />
+    <source src="/video/hero.mp4" type="video/mp4" />
+  </video>
+
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/35 to-ink-950/10"
+    aria-hidden="true"
+  ></div>
+
+  <div class="container-page relative z-10 pb-12 pt-32 md:pb-20 md:pt-40">
+    <p class="kicker text-cream-50">
+      <span class="inline-flex h-2 w-2 rounded-full bg-pink-500"></span>
+      10 años · Repostería artesanal &amp; Gift Center
+    </p>
+
+    <h1 class="font-display mt-4 max-w-xl text-4xl font-semibold leading-[1.05] text-cream-50 sm:text-5xl md:text-6xl">
+      Repostería artesanal. Gift center de verdad.
+    </h1>
+
+    <p class="mt-5 max-w-md text-base text-cream-100/85 md:text-lg">
+      Pasteles, cajas de regalo y postres hechos a mano en Tegucigalpa. Sin
+      tienda física — directo a tu puerta por delivery propio, apps o
+      nuestra vending machine.
+    </p>
+
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+      <a href={whatsappQuickOrder} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+        Ordenar ahora
+      </a>
+      <a href="/productos" class="btn btn-outline">Ver productos</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const video = document.getElementById("hero-video") as HTMLVideoElement | null;
+  if (video) {
+    const isMobileViewport = window.matchMedia("(max-width: 767px)").matches;
+    video.poster = isMobileViewport
+      ? "/video/hero-poster-mobile.jpg"
+      : "/video/hero-poster.jpg";
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReducedMotion) {
+      video.removeAttribute("autoplay");
+      video.pause();
+    } else {
+      video.preload = "auto";
+      const playPromise = video.play();
+      if (playPromise) playPromise.catch(() => void 0);
+    }
+  }
+</script>

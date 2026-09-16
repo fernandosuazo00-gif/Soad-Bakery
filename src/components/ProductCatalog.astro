@@ -1,0 +1,100 @@
+---
+import ProductCard from "./ProductCard.astro";
+import { categories, products } from "../data/products";
+
+interface Props {
+  initialCategory?: (typeof categories)[number]["id"];
+}
+
+const { initialCategory = "todos" } = Astro.props;
+---
+
+<div>
+  <div
+    id="category-filter"
+    class="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0"
+    role="group"
+    aria-label="Filtrar por categoría"
+  >
+    {
+      categories.map((cat) => (
+        <button
+          type="button"
+          class="chip shrink-0"
+          data-category-chip={cat.id}
+          aria-pressed={cat.id === initialCategory ? "true" : "false"}
+        >
+          {cat.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <p id="catalog-empty" class="hidden py-16 text-center text-stone-500">
+    Pronto agregaremos más productos en esta categoría.
+  </p>
+
+  <div
+    id="product-grid"
+    class="mt-6 grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 lg:grid-cols-4"
+  >
+    {products.map((product, i) => <ProductCard product={product} loading={i < 4 ? "eager" : "lazy"} />)}
+  </div>
+</div>
+
+<script>
+  const chips = Array.from(
+    document.querySelectorAll<HTMLButtonElement>("[data-category-chip]")
+  );
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-product-card]")
+  );
+  const emptyState = document.getElementById("catalog-empty")!;
+
+  const applyFilter = (category: string) => {
+    let visibleCount = 0;
+    for (const card of cards) {
+      const match = category === "todos" || card.dataset.category === category;
+      card.classList.toggle("hidden", !match);
+      if (match) visibleCount++;
+    }
+    emptyState.classList.toggle("hidden", visibleCount > 0);
+
+    chips.forEach((chip) => {
+      chip.setAttribute(
+        "aria-pressed",
+        chip.dataset.categoryChip === category ? "true" : "false"
+      );
+    });
+
+    const url = new URL(window.location.href);
+    if (category === "todos") {
+      url.searchParams.delete("categoria");
+    } else {
+      url.searchParams.set("categoria", category);
+    }
+    window.history.replaceState({}, "", url);
+  };
+
+  chips.forEach((chip) => {
+    chip.addEventListener("click", () => {
+      applyFilter(chip.dataset.categoryChip || "todos");
+    });
+  });
+
+  const params = new URLSearchParams(window.location.search);
+  const initial = params.get("categoria");
+  if (initial && chips.some((c) => c.dataset.categoryChip === initial)) {
+    applyFilter(initial);
+  }
+</script>
+
+<style>
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>

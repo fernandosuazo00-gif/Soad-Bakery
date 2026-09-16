@@ -1,0 +1,206 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo/soad-logo.jpg";
+import { nav, contact } from "../data/site";
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 bg-ink-950 text-cream-50">
+  <div class="container-page flex h-16 items-center justify-between gap-4 md:h-20">
+    <a href="/" class="flex items-center gap-2 shrink-0" aria-label={`Ir al inicio de SOAD Bakery`}>
+      <Image
+        src={logo}
+        alt="SOAD Bakery"
+        width={112}
+        height={112}
+        class="h-11 w-11 rounded-full md:h-14 md:w-14"
+        loading="eager"
+      />
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navegación principal">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+              isActive(item.href)
+                ? "bg-cream-50 text-ink-950"
+                : "text-cream-100/85 hover:text-cream-50 hover:bg-cream-50/10",
+            ]}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2 md:gap-3">
+      <a
+        href={`${contact.whatsappBaseUrl}?text=${encodeURIComponent("Hola SOAD Bakery 👋 quisiera hacer un pedido.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary hidden sm:inline-flex"
+      >
+        Ordenar ahora
+      </a>
+
+      <button
+        type="button"
+        id="cart-toggle"
+        class="relative inline-flex h-11 w-11 items-center justify-center rounded-full text-cream-50 hover:bg-cream-50/10 transition-colors cursor-pointer"
+        aria-label="Abrir carrito"
+        aria-haspopup="dialog"
+      >
+        <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+          <path
+            d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.4a2 2 0 0 0 2-1.6L21 8H6"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          ></path>
+          <circle cx="10" cy="21" r="1.4" fill="currentColor"></circle>
+          <circle cx="18" cy="21" r="1.4" fill="currentColor"></circle>
+        </svg>
+        <span
+          id="cart-badge"
+          class="absolute -top-1 -right-1 hidden min-w-[1.25rem] items-center justify-center rounded-full bg-pink-500 px-1 text-[11px] font-bold leading-5 text-cream-50"
+        >0</span>
+      </button>
+
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full text-cream-50 hover:bg-cream-50/10 transition-colors lg:hidden cursor-pointer"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-[60] hidden lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menú de navegación"
+>
+  <div id="mobile-menu-backdrop" class="absolute inset-0 bg-ink-950/70"></div>
+  <div class="absolute inset-y-0 right-0 flex w-[86%] max-w-sm flex-col bg-ink-950 text-cream-50 p-6 shadow-2xl animate-fade-up">
+    <div class="flex items-center justify-between">
+      <Image src={logo} alt="SOAD Bakery" width={80} height={80} class="h-10 w-10 rounded-full" />
+      <button
+        type="button"
+        id="mobile-menu-close"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-cream-50/10 cursor-pointer"
+        aria-label="Cerrar menú"
+      >
+        <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+      </button>
+    </div>
+
+    <nav class="mt-8 flex flex-col gap-1" aria-label="Navegación móvil">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              "rounded-xl px-4 py-3.5 text-lg font-semibold transition-colors",
+              isActive(item.href) ? "bg-cream-50 text-ink-950" : "hover:bg-cream-50/10",
+            ]}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-auto flex flex-col gap-3 pt-8">
+      <a
+        href={`${contact.whatsappBaseUrl}?text=${encodeURIComponent("Hola SOAD Bakery 👋 quisiera hacer un pedido.")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-primary w-full"
+      >
+        Ordenar por WhatsApp
+      </a>
+      <a href={contact.pedidosYaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline w-full">
+        Ordenar por PedidosYa
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { SoadCart } from "../scripts/cart";
+
+  const menuToggle = document.getElementById("mobile-menu-toggle");
+  const menuClose = document.getElementById("mobile-menu-close");
+  const menu = document.getElementById("mobile-menu");
+  const backdrop = document.getElementById("mobile-menu-backdrop");
+  const cartBadge = document.getElementById("cart-badge");
+  const cartToggle = document.getElementById("cart-toggle");
+
+  const openMenu = () => {
+    menu?.classList.remove("hidden");
+    menuToggle?.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    (menu?.querySelector("a") as HTMLElement | null)?.focus();
+  };
+
+  const closeMenu = () => {
+    menu?.classList.add("hidden");
+    menuToggle?.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+    menuToggle?.focus();
+  };
+
+  menuToggle?.addEventListener("click", openMenu);
+  menuClose?.addEventListener("click", closeMenu);
+  backdrop?.addEventListener("click", closeMenu);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !menu?.classList.contains("hidden")) closeMenu();
+  });
+
+  cartToggle?.addEventListener("click", () => {
+    window.dispatchEvent(new CustomEvent("soad-cart:open"));
+  });
+
+  const applyCount = (count: number) => {
+    if (!cartBadge) return;
+    if (count > 0) {
+      cartBadge.textContent = String(count);
+      cartBadge.classList.remove("hidden");
+      cartBadge.classList.add("inline-flex");
+    } else {
+      cartBadge.classList.add("hidden");
+      cartBadge.classList.remove("inline-flex");
+    }
+  };
+
+  window.addEventListener("soad-cart:change", (e) => {
+    applyCount((e as CustomEvent).detail.count);
+  });
+
+  // Imported (not just relying on the global) so this module is
+  // guaranteed evaluated and the cart is readable synchronously here —
+  // avoids a race with the page-wide init broadcast firing before this
+  // listener is registered.
+  const initialItems = SoadCart.getItems();
+  applyCount(initialItems.reduce((sum, i) => sum + i.qty, 0));
+</script>

@@ -1,0 +1,70 @@
+---
+import { Image } from "astro:assets";
+import vendingImage from "../assets/gallery/vending-machine.jpg";
+import SectionHeading from "./SectionHeading.astro";
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<section class="bg-ink-950 py-16 md:py-24">
+  <div class="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <div class:list={[compact && "order-2 lg:order-1"]}>
+      <SectionHeading
+        kicker="Vending Machine"
+        title="SOAD más cerca de vos."
+        tone="light"
+        subtitle="Encontrá una selección de productos SOAD Bakery al instante, sin coordinar delivery — directo en nuestra vending machine en Centro Cívico Gubernamental, Tegucigalpa."
+      />
+
+      {
+        !compact && (
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-2xl bg-cream-50/5 p-5">
+              <p class="font-display text-base font-semibold text-cream-50">¿Qué vas a encontrar?</p>
+              <p class="mt-2 text-sm text-cream-100/75">
+                Una selección rotativa de piezas individuales de nuestro catálogo — perfectas para un antojo rápido.
+              </p>
+            </div>
+            <div class="rounded-2xl bg-cream-50/5 p-5">
+              <p class="font-display text-base font-semibold text-cream-50">¿Dónde está?</p>
+              <p class="mt-2 text-sm text-cream-100/75">
+                Centro Cívico Gubernamental, Tegucigalpa.
+              </p>
+            </div>
+            <div class="rounded-2xl bg-cream-50/5 p-5 sm:col-span-2">
+              <p class="font-display text-base font-semibold text-cream-50">Horarios y método de pago</p>
+              <p class="mt-2 text-sm text-cream-100/75">
+                Muy pronto compartimos aquí el detalle de horarios de acceso y formas de pago de la vending machine. Mientras tanto, escribinos por WhatsApp si querés confirmar disponibilidad.
+              </p>
+            </div>
+          </div>
+        )
+      }
+
+      <div class="mt-8">
+        {
+          compact ? (
+            <a href="/vending" class="btn btn-outline">Conocer la vending machine</a>
+          ) : (
+            <a href="/contacto" class="btn btn-primary">Preguntar disponibilidad</a>
+          )
+        }
+      </div>
+    </div>
+
+    <div class:list={["relative", compact && "order-1 lg:order-2"]}>
+      <Image
+        src={vendingImage}
+        alt="Vending machine de SOAD Bakery color rosa con confeti, ubicada en Centro Cívico Gubernamental, Tegucigalpa"
+        width={900}
+        height={1200}
+        class="aspect-[3/4] w-full rounded-[var(--radius-card)] object-cover shadow-[var(--shadow-soft)]"
+        loading={compact ? "lazy" : "eager"}
+      />
+    </div>
+  </div>
+</section>

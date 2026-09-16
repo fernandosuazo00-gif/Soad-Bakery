@@ -1,0 +1,29 @@
+---
+import { Image } from "astro:assets";
+import teamPhoto from "../assets/history/soad-faraj-team.jpg";
+import SectionHeading from "./SectionHeading.astro";
+---
+
+<section class="py-16 md:py-24">
+  <div class="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+    <div class="relative">
+      <Image
+        src={teamPhoto}
+        alt="Soad Faraj, fundadora de SOAD Bakery, junto a su equipo en la cocina"
+        width={900}
+        height={1125}
+        class="aspect-[4/5] w-full rounded-[var(--radius-card)] object-cover object-top shadow-[var(--shadow-soft)]"
+        loading="lazy"
+      />
+    </div>
+
+    <div>
+      <SectionHeading
+        kicker="Nuestra Historia"
+        title="Un renacer que se convirtió en repostería"
+        subtitle="Soad Faraj transformó uno de los capítulos más desafiantes de su vida en un nuevo propósito. Hoy, 10 años después, SOAD Bakery sigue siendo esa misma historia de fe, resiliencia y amor por la familia — contada en cada pastel."
+      />
+      <a href="/nuestra-historia" class="btn btn-ghost-dark mt-6">Conocer la historia completa</a>
+    </div>
+  </div>
+</section>

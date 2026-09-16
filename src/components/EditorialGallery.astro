@@ -1,0 +1,44 @@
+---
+import { Image } from "astro:assets";
+import SectionHeading from "./SectionHeading.astro";
+import cupsImage from "../assets/gallery/tiramisu-cups.jpg";
+import slicesImage from "../assets/gallery/slices.jpg";
+import boxImage from "../assets/gallery/mini-box.jpg";
+---
+
+<section class="py-16 md:py-24">
+  <div class="container-page">
+    <SectionHeading
+      kicker="Momentos SOAD"
+      title="Hecho para compartir (o no)"
+      subtitle="Un vistazo a lo que sale de nuestra cocina cada semana."
+    />
+
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
+      <Image
+        src={cupsImage}
+        alt="Vasitos individuales de postre recién armados en la cocina de SOAD Bakery"
+        width={700}
+        height={900}
+        loading="lazy"
+        class="col-span-1 aspect-[3/4] w-full rounded-[var(--radius-card)] object-cover shadow-[var(--shadow-soft)]"
+      />
+      <Image
+        src={slicesImage}
+        alt="Variedad de rebanadas de pastel SOAD Bakery servidas para degustar"
+        width={700}
+        height={900}
+        loading="lazy"
+        class="col-span-1 aspect-[3/4] w-full rounded-[var(--radius-card)] object-cover shadow-[var(--shadow-soft)]"
+      />
+      <Image
+        src={boxImage}
+        alt="Gift box de SOAD Bakery lista para regalar, amarrada con listón"
+        width={700}
+        height={900}
+        loading="lazy"
+        class="col-span-2 aspect-[16/9] w-full rounded-[var(--radius-card)] object-cover shadow-[var(--shadow-soft)] md:col-span-1 md:aspect-[3/4]"
+      />
+    </div>
+  </div>
+</section>

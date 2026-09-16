@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+import { contact, hours, site } from "../data/site";
+
+const whatsappQuickOrder = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
+  "Hola SOAD Bakery 👋 quisiera hacer un pedido."
+)}`;
+---
+
+<Layout
+  title="Contacto"
+  description="Contactá a SOAD Bakery en Tegucigalpa por WhatsApp o PedidosYa. Horarios, redes sociales y todo lo que necesitás para hacer tu pedido."
+  path="/contacto"
+>
+  <section class="pt-12 pb-6 md:pt-16">
+    <div class="container-page">
+      <SectionHeading
+        kicker="Contacto"
+        title="Hablemos de tu próximo antojo"
+        subtitle="Somos un dark bakery: sin tienda física para visitar, pero siempre a un mensaje de distancia."
+      />
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-24">
+    <div class="container-page grid gap-6 md:grid-cols-2">
+      <div class="card-surface flex flex-col gap-4 p-7">
+        <h2 class="font-display text-xl font-semibold text-ink-950">Pedí directo</h2>
+        <a href={whatsappQuickOrder} target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full sm:w-auto">
+          WhatsApp — {contact.whatsappDisplay}
+        </a>
+        <a href={contact.pedidosYaUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost-dark w-full sm:w-auto">
+          Ver menú en PedidosYa
+        </a>
+        <p class="text-sm text-stone-600">
+          ¿Preferís explorar antes? Mirá el <a href="/productos" class="font-semibold text-ink-950 underline underline-offset-2">catálogo completo</a> y armá tu pedido desde el sitio.
+        </p>
+      </div>
+
+      <div class="card-surface flex flex-col gap-4 p-7">
+        <h2 class="font-display text-xl font-semibold text-ink-950">Horario</h2>
+        <ul class="flex flex-col gap-2 text-sm text-stone-700">
+          {
+            hours.map((h) => (
+              <li class="flex items-center justify-between border-b border-ink-950/5 pb-2 last:border-0">
+                <span class="font-semibold text-ink-950">{h.days}</span>
+                <span>{h.time}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="text-sm text-stone-600">{site.city}</p>
+      </div>
+
+      <div class="card-surface flex flex-col gap-4 p-7">
+        <h2 class="font-display text-xl font-semibold text-ink-950">Vending Machine</h2>
+        <p class="text-sm text-stone-600">
+          También podés encontrar productos seleccionados de SOAD Bakery en
+          nuestra vending machine en Centro Cívico Gubernamental.
+        </p>
+        <a href="/vending" class="btn btn-ghost-dark self-start">Conocer más</a>
+      </div>
+
+      <div class="card-surface flex flex-col gap-4 p-7">
+        <h2 class="font-display text-xl font-semibold text-ink-950">Seguinos</h2>
+        <p class="text-sm text-stone-600">Fotos, videos y novedades del día a día en la cocina.</p>
+        <SocialIcons class="text-ink-950" />
+      </div>
+    </div>
+  </section>
+</Layout>

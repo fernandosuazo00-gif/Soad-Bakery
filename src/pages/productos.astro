@@ -1,0 +1,27 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProductCatalog from "../components/ProductCatalog.astro";
+---
+
+<Layout
+  title="Productos"
+  description="Catálogo de SOAD Bakery: boxes de regalo, cakes y cheesecakes, bakery y slices. Elegí tus favoritos y pedí por WhatsApp o PedidosYa."
+  path="/productos"
+>
+  <section class="pt-12 pb-6 md:pt-16">
+    <div class="container-page">
+      <SectionHeading
+        kicker="Catálogo"
+        title="Productos"
+        subtitle="Filtrá por categoría, agregá lo que se te antoje y armá tu pedido — vos elegís si es por WhatsApp o PedidosYa."
+      />
+    </div>
+  </section>
+
+  <section class="pb-16 md:pb-24">
+    <div class="container-page">
+      <ProductCatalog />
+    </div>
+  </section>
+</Layout>
