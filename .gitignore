@@ -26,7 +26,11 @@ pnpm-debug.log*
 # raw, unprocessed brand assets supplied for this project — large source
 # files already optimized/copied into src/assets, public/video and
 # public/icons for the site itself. Not needed to build or run the site.
-Abous Us:History/
-Bakery Gallery/
-Logo/
-Videos/
+# Anchored to the repo root (leading slash) so these don't accidentally
+# match same-named directories elsewhere in the tree, e.g. src/assets/logo/
+# — git on macOS is case-insensitive by default (core.ignorecase=true),
+# so an unanchored "Logo/" here previously also matched "logo/" anywhere.
+/Abous Us:History/
+/Bakery Gallery/
+/Logo/
+/Videos/
