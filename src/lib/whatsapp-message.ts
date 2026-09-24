@@ -1,15 +1,7 @@
 import { formatLempiras } from "./currency";
-import type { CartItem, OrderMethod } from "../scripts/cart";
+import type { CartItem } from "../scripts/cart";
 
-const methodLabel: Record<OrderMethod, string> = {
-  delivery: "Delivery",
-  pickup: "Pickup",
-};
-
-export const buildWhatsAppOrderMessage = (
-  items: CartItem[],
-  method: OrderMethod
-): string => {
+export const buildWhatsAppOrderMessage = (items: CartItem[]): string => {
   const lines = [
     "Hola SOAD Bakery 👋",
     "Quisiera realizar el siguiente pedido:",
@@ -36,16 +28,15 @@ export const buildWhatsAppOrderMessage = (
     lines.push(`Total: ${formatLempiras(subtotal)}`);
   }
 
-  lines.push(`Método: ${methodLabel[method]}`);
+  lines.push("Método: Delivery");
 
   return lines.join("\n");
 };
 
 export const buildWhatsAppUrl = (
   whatsappBaseUrl: string,
-  items: CartItem[],
-  method: OrderMethod
+  items: CartItem[]
 ): string => {
-  const message = buildWhatsAppOrderMessage(items, method);
+  const message = buildWhatsAppOrderMessage(items);
   return `${whatsappBaseUrl}?text=${encodeURIComponent(message)}`;
 };

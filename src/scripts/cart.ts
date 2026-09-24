@@ -6,10 +6,7 @@ export interface CartItem {
   qty: number;
 }
 
-export type OrderMethod = "delivery" | "pickup";
-
 const CART_KEY = "soad-cart-v1";
-const METHOD_KEY = "soad-order-method-v1";
 
 const readCart = (): CartItem[] => {
   if (typeof localStorage === "undefined") return [];
@@ -78,23 +75,6 @@ export const SoadCart = {
 
   clear() {
     writeCart([]);
-  },
-
-  getMethod(): OrderMethod {
-    if (typeof localStorage === "undefined") return "delivery";
-    const stored = localStorage.getItem(METHOD_KEY);
-    return stored === "pickup" ? "pickup" : "delivery";
-  },
-
-  setMethod(method: OrderMethod) {
-    try {
-      localStorage.setItem(METHOD_KEY, method);
-    } catch {
-      /* ignore */
-    }
-    window.dispatchEvent(
-      new CustomEvent("soad-cart:method-change", { detail: { method } })
-    );
   },
 
   init() {

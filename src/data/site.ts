@@ -47,18 +47,3 @@ export const nav = [
   { label: "Vending", href: "/vending" },
   { label: "Contacto", href: "/contacto" },
 ];
-
-export const orderMethods = {
-  delivery: {
-    id: "delivery" as const,
-    label: "Delivery",
-    description: "Lo llevamos hasta tu puerta con envío propio.",
-  },
-  pickup: {
-    id: "pickup" as const,
-    label: "Pickup",
-    description: "Coordinamos el punto y la hora para que lo recojas.",
-  },
-};
-
-export type OrderMethodId = keyof typeof orderMethods;
