@@ -14,6 +14,9 @@ export default defineConfig({
   },
   image: {
     responsiveStyles: true,
+    // Product photos are managed in FStudio Admin (Supabase Storage) and
+    // optimized here at build time, like the photos that used to live in src/assets.
+    remotePatterns: [{ protocol: 'https', hostname: '**.supabase.co', pathname: '/storage/v1/object/public/**' }],
   },
   integrations: [sitemap()],
 });

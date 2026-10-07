@@ -27,6 +27,10 @@ const {
 const canonicalURL = new URL(path, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site);
 const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
+
+// Live availability from FStudio Admin (no rebuild needed for "Agotado").
+const fstudioSiteKey = process.env.FSTUDIO_SITE_KEY;
+const fstudioApi = (process.env.FSTUDIO_API_URL ?? "").replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -88,6 +92,11 @@ const pageTitle = title === site.name ? title : `${title} | ${site.name}`;
         },
       })}
     />
+    {
+      fstudioSiteKey && fstudioApi && (
+        <script is:inline src={`${fstudioApi}/sdk/v1/fstudio-live.js`} data-site-key={fstudioSiteKey} data-api={fstudioApi} defer />
+      )
+    }
   </head>
   <body class="min-h-screen flex flex-col">
     <a href="#main" class="skip-link">Saltar al contenido principal</a>

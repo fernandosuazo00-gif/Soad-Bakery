@@ -35,3 +35,6 @@ pnpm-debug.log*
 /Logo/
 /Videos/
 /Menu/
+
+# FStudio catalog handed from scripts/fstudio-build.mts to Astro
+.fstudio/
