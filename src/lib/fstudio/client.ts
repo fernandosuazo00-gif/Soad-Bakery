@@ -1,4 +1,4 @@
-// Vendored from FStudio Admin (packages/sdk/src/client.ts @ eb594f2). Do not edit here: update from FStudio.
+// Vendored from FStudio Admin (packages/sdk/src/client.ts @ 2332147). Do not edit here: update from FStudio.
 import type { CmsCatalog, CmsSchemaResponse, PublicAvailability, PublicCatalog, PublicProduct } from './types.ts'
 
 /** Cache tag used for every catalog fetch; the refresh route invalidates it. */

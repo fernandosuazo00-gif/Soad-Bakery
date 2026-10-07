@@ -1,4 +1,4 @@
-// Vendored from FStudio Admin (packages/sdk/src/webhooks.ts @ eb594f2). Do not edit here: update from FStudio.
+// Vendored from FStudio Admin (packages/sdk/src/webhooks.ts @ 2332147). Do not edit here: update from FStudio.
 /**
  * Webhook signatures (HMAC-SHA256), shared by FStudio Admin (signs) and
  * client websites (verify). Uses Web Crypto, so it runs on Node, Edge and

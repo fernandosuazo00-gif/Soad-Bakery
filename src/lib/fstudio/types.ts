@@ -1,4 +1,4 @@
-// Vendored from FStudio Admin (packages/sdk/src/types.ts @ eb594f2). Do not edit here: update from FStudio.
+// Vendored from FStudio Admin (packages/sdk/src/types.ts @ 2332147). Do not edit here: update from FStudio.
 /** Public contract between FStudio Admin and client websites (API v1). */
 
 export type SiteKey = `fs_site_${string}`

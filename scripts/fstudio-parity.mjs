@@ -64,6 +64,8 @@ const normalize = (html) =>
     .replace(/\/_astro\/[^"'\s),]+/g, '/_astro/*')
     .replace(/ data-fstudio-[a-z-]+="[^"]*"/g, '')
     .replace(/<script[^>]*fstudio-live\.js[^>]*><\/script>/g, '')
+    // Vercel's toolbar, injected into preview deployments only.
+    .replace(/<script[^>]*data-deployment-id[\s\S]*?<\/script>/g, '')
     .replace(/<span class="sold-out-badge[\s\S]*?<\/span>/g, '')
     .replace(/<span class="label-available">([\s\S]*?)<\/span>\s*<span class="label-sold-out">[\s\S]*?<\/span>/g, '$1')
     .replace(/<style[\s\S]*?<\/style>/g, '')

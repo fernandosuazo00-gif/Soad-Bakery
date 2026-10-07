@@ -1,4 +1,4 @@
-// Vendored from FStudio Admin (packages/sdk/src/build.ts @ eb594f2). Do not edit here: update from FStudio.
+// Vendored from FStudio Admin (packages/sdk/src/build.ts @ 2332147). Do not edit here: update from FStudio.
 /**
  * @fstudio/sdk/build — for websites that are built from FStudio's catalog
  * (static sites: Astro, Next.js `output: 'export'`, plain Node scripts…).
@@ -68,8 +68,23 @@ function config(c: BuildConfig) {
     apiUrl,
     secret: c.secret ?? e.FSTUDIO_SITE_SECRET ?? e.FSTUDIO_WEBHOOK_SECRET,
     buildId: c.buildId ?? defaultBuildId(e),
+    report: isProductionBuild(e),
     fetch: c.fetch ?? globalThis.fetch,
   }
+}
+
+/**
+ * Whether this build should report to FStudio: production builds only, so
+ * a preview deployment never marks the live website as updated.
+ * FSTUDIO_REPORT_BUILDS=true|false overrides the detection.
+ */
+export function isProductionBuild(e: Env = env()) {
+  if (e.FSTUDIO_REPORT_BUILDS === 'true') return true
+  if (e.FSTUDIO_REPORT_BUILDS === 'false') return false
+  if (e.VERCEL_ENV) return e.VERCEL_ENV === 'production'
+  if (e.NETLIFY && e.CONTEXT) return e.CONTEXT === 'production'
+  if (e.CF_PAGES && e.CF_PAGES_BRANCH && e.FSTUDIO_PRODUCTION_BRANCH) return e.CF_PAGES_BRANCH === e.FSTUDIO_PRODUCTION_BRANCH
+  return true
 }
 
 /** The hosting provider's id for this build, or a random one. */
@@ -154,6 +169,7 @@ export function createBuildReporter(options: BuildConfig = {}) {
   const c = config(options)
   async function report(event: BuildReport['event'], catalogVersion: number | null, error?: string) {
     if (!c.secret) return { ok: false, reason: 'no_secret' as const }
+    if (!c.report) return { ok: false, reason: 'not_production' as const }
     const body: BuildReport = {
       event,
       catalogVersion,
