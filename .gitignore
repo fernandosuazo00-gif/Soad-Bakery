@@ -35,6 +35,7 @@ pnpm-debug.log*
 /Logo/
 /Videos/
 /Menu/
+/Soad Vending/
 
 # FStudio catalog handed from scripts/fstudio-build.mts to Astro
 .fstudio/

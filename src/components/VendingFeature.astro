@@ -2,6 +2,8 @@
 import { Image } from "astro:assets";
 import vendingImage from "../assets/gallery/vending-machine.jpg";
 import SectionHeading from "./SectionHeading.astro";
+import WhatsAppIcon from "./WhatsAppIcon.astro";
+import { vending } from "../data/site";
 
 interface Props {
   compact?: boolean;
@@ -11,14 +13,36 @@ const { compact = false } = Astro.props;
 ---
 
 <section class="bg-ink-950 py-16 md:py-24">
-  <div class="container-page grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+  <div class="container-page grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
     <div class:list={[compact && "order-2 lg:order-1"]}>
       <SectionHeading
         kicker="Vending Machine"
         title="SOAD más cerca de vos."
         tone="light"
-        subtitle="Encontrá una selección de productos SOAD Bakery al instante, sin coordinar delivery — directo en nuestra vending machine en Centro Cívico Gubernamental, Tegucigalpa."
+        subtitle={
+          compact
+            ? "Encontrá una selección de productos SOAD Bakery al instante, sin coordinar delivery — directo en nuestra vending machine en Centro Cívico Gubernamental, Tegucigalpa."
+            : "Estos productos están disponibles a través de la vending machine de SOAD Bakery, ubicada en Centro Cívico Gubernamental, Tegucigalpa — sin coordinar delivery."
+        }
       />
+
+      {
+        compact ? (
+          <div class="mt-8">
+            <a href="/vending" class="btn btn-outline">Conocer la vending machine</a>
+          </div>
+        ) : (
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <a href={vending.catalogUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary whitespace-normal px-5 text-center leading-snug sm:whitespace-nowrap">
+              <WhatsAppIcon class="h-5 w-5 shrink-0" />
+              Ver catálogo de Vending en WhatsApp
+            </a>
+            <a href={vending.availabilityUrl} target="_blank" rel="noopener noreferrer" class="btn btn-outline px-5">
+              Consultar disponibilidad
+            </a>
+          </div>
+        )
+      }
 
       {
         !compact && (
@@ -26,34 +50,25 @@ const { compact = false } = Astro.props;
             <div class="rounded-2xl bg-cream-50/5 p-5">
               <p class="font-display text-base font-semibold text-cream-50">¿Qué vas a encontrar?</p>
               <p class="mt-2 text-sm text-cream-100/75">
-                Una selección rotativa de piezas individuales de nuestro catálogo — perfectas para un antojo rápido.
+                Productos seleccionados de SOAD Bakery, disponibles en la vending machine. Mirá las fotos más abajo.
               </p>
             </div>
             <div class="rounded-2xl bg-cream-50/5 p-5">
               <p class="font-display text-base font-semibold text-cream-50">¿Dónde está?</p>
               <p class="mt-2 text-sm text-cream-100/75">
-                Centro Cívico Gubernamental, Tegucigalpa.
+                {vending.location}.
               </p>
             </div>
             <div class="rounded-2xl bg-cream-50/5 p-5 sm:col-span-2">
-              <p class="font-display text-base font-semibold text-cream-50">Horarios y método de pago</p>
+              <p class="font-display text-base font-semibold text-cream-50">Catálogo oficial de Vending</p>
               <p class="mt-2 text-sm text-cream-100/75">
-                Muy pronto compartimos aquí el detalle de horarios de acceso y formas de pago de la vending machine. Mientras tanto, escribinos por WhatsApp si querés confirmar disponibilidad.
+                La vending machine tiene su propio WhatsApp Business ({vending.whatsappDisplay}) con el catálogo de productos. Escribinos ahí para ver qué hay y consultar disponibilidad. Los pedidos de la pastelería siguen por nuestro WhatsApp principal.
               </p>
             </div>
           </div>
         )
       }
 
-      <div class="mt-8">
-        {
-          compact ? (
-            <a href="/vending" class="btn btn-outline">Conocer la vending machine</a>
-          ) : (
-            <a href="/contacto" class="btn btn-primary">Preguntar disponibilidad</a>
-          )
-        }
-      </div>
     </div>
 
     <div class:list={["relative", compact && "order-1 lg:order-2"]}>
