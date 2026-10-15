@@ -1,20 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import VendingFeature from "../components/VendingFeature.astro";
+import VendingGallery from "../components/VendingGallery.astro";
 import SectionHeading from "../components/SectionHeading.astro";
-import { contact } from "../data/site";
-
-const whatsappVendingQuestion = `${contact.whatsappBaseUrl}?text=${encodeURIComponent(
-  "Hola SOAD Bakery 👋 tengo una pregunta sobre la vending machine de Centro Cívico."
-)}`;
+import WhatsAppIcon from "../components/WhatsAppIcon.astro";
+import { vending } from "../data/site";
 ---
 
 <Layout
   title="Vending Machine"
-  description="Conocé la vending machine de SOAD Bakery en Centro Cívico Gubernamental, Tegucigalpa: una selección de productos disponibles al instante."
+  description="Conocé los productos de la vending machine de SOAD Bakery en Centro Cívico Gubernamental, Tegucigalpa, y mirá el catálogo oficial por WhatsApp."
   path="/vending"
 >
   <VendingFeature />
+
+  <VendingGallery />
 
   <section class="py-16 md:py-24">
     <div class="container-page text-center">
@@ -22,12 +22,18 @@ const whatsappVendingQuestion = `${contact.whatsappBaseUrl}?text=${encodeURIComp
         align="center"
         kicker="¿Tenés dudas?"
         title="Escribinos y te confirmamos disponibilidad"
-        subtitle="Estamos actualizando el inventario de la vending machine seguido — si buscás algo en particular, preguntanos por WhatsApp."
+        subtitle="Estamos actualizando el inventario de la vending machine seguido — mirá el catálogo oficial o preguntanos por WhatsApp."
         class="mx-auto"
       />
-      <a href={whatsappVendingQuestion} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-6">
-        Preguntar por WhatsApp
-      </a>
+      <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={vending.catalogUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary whitespace-normal text-center leading-snug sm:whitespace-nowrap">
+          <WhatsAppIcon class="h-5 w-5 shrink-0" />
+          Ver catálogo de Vending en WhatsApp
+        </a>
+        <a href={vending.availabilityUrl} target="_blank" rel="noopener noreferrer" class="btn btn-ghost-dark">
+          Consultar disponibilidad
+        </a>
+      </div>
     </div>
   </section>
 </Layout>

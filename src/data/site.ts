@@ -19,6 +19,18 @@ export const contact = {
     "https://www.pedidosya.com.hn/restaurantes/tegucigalpa/soad-bakery-3a07e9c7-0c8f-4ecc-a5b7-ee2497f4de62-menu",
 };
 
+// Separate WhatsApp Business account for the vending machine. It holds the
+// official vending catalog — use it only in the vending section, never for
+// regular bakery orders (those go to `contact.whatsappBaseUrl`).
+export const vending = {
+  whatsappDisplay: "+504 9796-4418",
+  catalogUrl: "https://wa.me/50497964418",
+  availabilityUrl: `https://wa.me/50497964418?text=${encodeURIComponent(
+    "Hola SOAD Bakery 👋 quisiera consultar la disponibilidad de productos de la vending machine de Centro Cívico."
+  )}`,
+  location: "Centro Cívico Gubernamental, Tegucigalpa",
+};
+
 export const social = {
   instagram: "https://www.instagram.com/soadbakery/",
   tiktok: "https://www.tiktok.com/@soadbakery?_r=1&_t=ZT-99n3B5nwjte",
