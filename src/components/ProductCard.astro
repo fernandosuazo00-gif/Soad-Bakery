@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 import type { Product } from "../data/products";
 import { formatLempiras } from "../lib/currency";
 
@@ -12,29 +12,39 @@ interface Props {
 const { product, loading = "lazy" } = Astro.props;
 
 // The cart only needs a lightweight JSON payload — build it once and
-// resolve the built image src for the cart thumbnail.
+// resolve a small optimized image for the cart thumbnail.
+const thumbnail = product.image ? await getImage({ src: product.image, width: 160, height: 200 }) : null;
 const cardPayload = JSON.stringify({
   id: product.id,
   name: product.name,
   price: product.price,
-  image: product.image.src,
+  image: thumbnail?.src ?? "",
 });
 ---
 
 <article
   data-product-card
   data-category={product.category}
+  data-fstudio-product={product.id}
+  data-fstudio-availability={product.availability}
   class="group flex flex-col overflow-hidden rounded-[var(--radius-card)] bg-white shadow-[var(--shadow-soft)] transition-transform duration-200"
 >
   <div class="relative aspect-[4/5] overflow-hidden bg-cream-200">
-    <Image
-      src={product.image}
-      alt={product.alt}
-      width={480}
-      height={600}
-      loading={loading}
-      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-    />
+    {
+      product.image && (
+        <Image
+          src={product.image}
+          alt={product.alt}
+          width={480}
+          height={600}
+          loading={loading}
+          class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      )
+    }
+    <span class="sold-out-badge absolute top-3 left-3 rounded-full bg-ink-950 px-3 py-1 text-xs font-bold text-cream-50">
+      Agotado
+    </span>
   </div>
 
   <div class="flex flex-1 flex-col gap-2 p-4">
@@ -73,7 +83,37 @@ const cardPayload = JSON.stringify({
       class="add-to-cart-btn btn btn-dark w-full mt-1"
       aria-label={`Agregar ${product.name} al carrito`}
     >
-      Agregar
+      <span class="label-available">Agregar</span>
+      <span class="label-sold-out">Agotado</span>
     </button>
   </div>
 </article>
+
+<style>
+  /* Availability from FStudio (build time + live inventory, no rebuild). */
+  .sold-out-badge,
+  .label-sold-out {
+    display: none;
+  }
+  [data-fstudio-availability="sold_out"] .sold-out-badge {
+    display: inline-block;
+  }
+  [data-fstudio-availability="sold_out"] img {
+    opacity: 0.55;
+  }
+  [data-fstudio-availability="sold_out"] .add-to-cart-btn,
+  [data-fstudio-availability="sold_out"] .qty-increment,
+  [data-fstudio-availability="sold_out"] .qty-decrement {
+    pointer-events: none;
+    opacity: 0.45;
+  }
+  [data-fstudio-availability="sold_out"] .label-available {
+    display: none;
+  }
+  [data-fstudio-availability="sold_out"] .label-sold-out {
+    display: inline;
+  }
+  [data-fstudio-visible="false"] {
+    display: none !important;
+  }
+</style>

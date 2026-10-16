@@ -1,0 +1,26 @@
+{
+  "types": [
+    {
+      "key": "producto",
+      "name": { "es": "Producto", "en": "Product" },
+      "variants": "none",
+      "fields": [],
+      "placement": {
+        "categories": ["boxes", "cakes-cheesecakes", "fall-season", "bakery", "slices"],
+        "primaryRequired": true,
+        "additional": false
+      }
+    }
+  ],
+  "fields": [],
+  "categories": [
+    { "key": "boxes", "name": { "es": "Boxes", "en": "Boxes" } },
+    { "key": "cakes-cheesecakes", "name": { "es": "Cakes and Cheesecakes", "en": "Cakes and Cheesecakes" } },
+    { "key": "fall-season", "name": { "es": "Fall Season", "en": "Fall Season" } },
+    { "key": "bakery", "name": { "es": "Bakery", "en": "Bakery" } },
+    { "key": "slices", "name": { "es": "Slices", "en": "Slices" } }
+  ],
+  "collections": [
+    { "key": "destacados", "name": { "es": "Nuestros favoritos", "en": "Our favorites" } }
+  ]
+}
